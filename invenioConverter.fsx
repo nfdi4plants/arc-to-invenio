@@ -31,15 +31,19 @@ let metadata =
             property "id" "ARC"
         })
         property "creators" (array {
-            for p in i.Contacts.Value do
-                object {
-                    property "person_or_org" (object {
-                        property "type" "personal"
-                        property "name" $"{p.LastName.Value}, {p.FirstName.Value}"
-                        property "given_name" p.FirstName.Value
-                        property "family_name" p.LastName.Value
-                    })
-                }
+            let ps = 
+                [
+                for p in i.Contacts.Value do
+                    object {
+                        property "person_or_org" (object {
+                            property "type" "personal"
+                            property "name" $"{p.LastName.Value}, {p.FirstName.Value}"
+                            property "given_name" p.FirstName.Value
+                            property "family_name" p.LastName.Value
+                        })
+                    }
+                ]
+            yield! ps
         })
         property "title" i.Title.Value
         property "publication_date" $"{now.Year}-{now.Month}-{now.Day}"
