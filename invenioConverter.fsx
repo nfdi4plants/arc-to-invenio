@@ -28,7 +28,7 @@ let now = System.DateTime.Now
 let metadata = 
     object {
         property "resource_type" (object {
-            property "id" "ARC"
+            property "id" "Dataset"
         })
         property "creators" (array {
             let ps = 
