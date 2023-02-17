@@ -46,7 +46,7 @@ let metadata =
             yield! ps
         })
         property "title" i.Title.Value
-        property "publication_date" $"{now.Year}-{now.Month}-{now.Day}"
+        property "publication_date" $"{now.Year}" //$"{now.Year}-{now.Month}-{now.Day}"
     }
 
 
