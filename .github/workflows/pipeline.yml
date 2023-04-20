@@ -4,8 +4,9 @@ on:
   push:
     branches: ['main']
     paths:
-# this ensures that docker image is only published when source code is changed
+# this ensures that docker image is only published when source code or Dockerfile is changed
       - 'src/**'
+      - 'Dockerfile'
 
 env:
   REGISTRY: ghcr.io

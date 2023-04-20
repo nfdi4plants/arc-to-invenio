@@ -15,7 +15,6 @@ on:
       - 'src/**'
       - 'build/**'
 
-
 jobs:
   build-and-test-linux:
 
@@ -31,7 +30,7 @@ jobs:
       run: chmod u+x build.sh
     - name: Build and test
       working-directory: ./
-      run: ./build.sh runtestsallnonetfx
+      run: ./build.sh runtests
 
   build-and-test-windows:
     
@@ -43,6 +42,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.x.x
-    - name: Build and test (includes netfx)
+    - name: Build and test
       working-directory: ./
-      run: ./build.cmd runtestsall
+      run: ./build.cmd runtests
