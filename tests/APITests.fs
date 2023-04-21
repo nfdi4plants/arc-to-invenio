@@ -1,5 +1,4 @@
 module APITests
-open Arc2Invenio
 open Expecto
 
 [<Tests>]

@@ -6,7 +6,7 @@ let project = "invenio-converter"
 
 let testProjects = 
     [
-        // add relative paths (from project root) to your testprojects here
+        "tests/ConverterTests.fsproj"
     ]
 
 let solutionFile  = $"{project}.sln"
