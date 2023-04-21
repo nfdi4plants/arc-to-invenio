@@ -40,3 +40,5 @@ module JSONCreation =
             property "title" i.Title.Value
             property "publication_date" $"{System.DateTime.Now.Year}" //$"{now.Year}-{now.Month}-{now.Day}"
         }
+
+module JSONValidation = ()

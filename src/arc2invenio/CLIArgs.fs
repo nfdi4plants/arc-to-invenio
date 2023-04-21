@@ -13,4 +13,6 @@ type CliArguments =
             | ARC_Directory _ -> "specify a directory that contains the arc to convert."
             | Out_Directory _ -> "specify a output directory for the invenio metadata record."
 
-let cliArgParser = ArgumentParser.Create<CliArguments>(programName = "arc2invenio")
+let errorHandler = ProcessExiter(colorizer = function ErrorCode.HelpText -> None | _ -> Some System.ConsoleColor.Red)
+
+let cliArgParser = ArgumentParser.Create<CliArguments>(programName = "arc2invenio", errorHandler = errorHandler)
