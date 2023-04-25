@@ -7,6 +7,10 @@ open JsonDSL
 open Argu
 open System.IO
 
+
+module Investigation =
+    let title (i: ISADotNet.Investigation) = i.Title.Value
+
 type CliArguments =
     | [<Mandatory>][<AltCommandLine("-p")>] ARC_Directory of path:string
 
@@ -21,7 +25,7 @@ let results = parser.Parse (Array.skip 1 fsi.CommandLineArgs)
 let arcPath = results.GetResult(ARC_Directory)
 let outPath = Path.Combine(arcPath,"metadata.json")
 
-let i = Investigation.read arcPath
+let i = Investigation.read @"C:\Users\schne\source\repos\nfdi4plants\invenio-converter\tests\fixtures\test-arc"
 
 let now = System.DateTime.Now
 
@@ -45,10 +49,12 @@ let metadata =
                 ]
             yield! ps
         })
-        property "title" i.Title.Value
-        property "publication_date" $"{now.Year}" //$"{now.Year}-{now.Month}-{now.Day}"
+        property "title" (-. None)
+        property "publication_date" $"""{System.DateTime.Now.ToString("yyyy-MM-dd")}"""
     }
 
+open System.Text.Json;
 
 let options = System.Text.Json.JsonSerializerOptions(WriteIndented = true)
-File.WriteAllText(outPath,metadata.ToJsonString(options))
+
+File.WriteAllText(@"C:\Users\schne\source\repos\nfdi4plants\invenio-converter\tests\fixtures\test-arc\metadata.json",metadata.ToJsonString(options))

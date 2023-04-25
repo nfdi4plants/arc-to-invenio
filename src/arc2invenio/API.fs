@@ -1,32 +1,31 @@
 ﻿module API
 
+open arcIO.NET
+open System.Text.Json
+open JsonDSL
 
-let test() = 42
+type JSONCreation() =
 
-module JSONCreation =
 
-    open arcIO.NET
+    static member CreateMetadataRecordFromInvestigation (?PublicationDate:System.DateTime) =
+        fun (i:ISADotNet.Investigation) -> 
+            //currently targets this undocumented python class:
+            //
+            //class Metadata(BaseModel):
+            //    creators: List[Creator]
+            //    publication_date: Optional[str] = None
+            //    resource_type: Optional[ResourceType] = None
+            //    title: Optional[str] = None
+            let publicationDate = defaultArg PublicationDate System.DateTime.Now
+            let publication_date_ISO = publicationDate.ToString("yyyy-MM-dd")
 
-    open JsonDSL
-
-    let createMetadataRecordFromInvestigation (i:ISADotNet.Investigation) =
-        //currently targets this undocumented python class:
-        //
-        //class Metadata(BaseModel):
-        //    creators: List[Creator]
-        //    publication_date: Optional[str] = None
-        //    resource_type: Optional[ResourceType] = None
-        //    title: Optional[str] = None
-
-        object {
-            property "resource_type" (object {
-                property "id" "dataset"
-            })
-            property "creators" (array {
-                let ps = 
-                    [
-                    for p in i.Contacts.Value do
-                        object {
+            object {
+                property "resource_type" (object {
+                    property "id" "dataset"
+                })
+                property "creators" (array {
+                    for p in i.Contacts |> Option.defaultValue [] do
+                        yield object {
                             property "person_or_org" (object {
                                 property "type" "personal"
                                 property "name" $"{p.LastName.Value}, {p.FirstName.Value}"
@@ -34,11 +33,16 @@ module JSONCreation =
                                 property "family_name" p.LastName.Value
                             })
                         }
-                    ]
-                yield! ps
-            })
-            property "title" i.Title.Value
-            property "publication_date" $"{System.DateTime.Now.Year}" //$"{now.Year}-{now.Month}-{now.Day}"
-        }
+                })
+                property "title" (-. i.Title)
+                property "publication_date" publication_date_ISO
+            }
 
-module JSONValidation = ()
+    static member SerializeMetadataRecord (
+        ?SerializerOptions: JsonSerializerOptions
+    ) =
+        fun (record: Nodes.JsonObject) ->
+            let options = defaultArg SerializerOptions Defaults.FormattedSerializerOptions
+            record.ToJsonString(options)
+
+module JSONValidation = ()  // to-do once we have a common schema, implement as optional flag to validate all generated json via schema

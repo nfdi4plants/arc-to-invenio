@@ -4,6 +4,7 @@ open Argu
 
 try
     let args = CLIArgs.cliArgParser.ParseCommandLine()
+
     let arcPath = args.GetResult(CLIArgs.ARC_Directory)
 
     let outPath = 
@@ -12,17 +13,22 @@ try
 
     let outFile = Path.Combine(outPath,"metadata.json")
 
+    let publicationDate = 
+        args.TryGetResult(CLIArgs.Publication_Date)
+        |> Option.map (fun d -> System.DateTime.ParseExact(d, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))
 
-    let i = Investigation.read arcPath
-    let now = System.DateTime.Now
+    let serializerOptions = 
+        if args.TryGetResult(CLIArgs.Format_Output).IsSome then
+            Defaults.FormattedSerializerOptions
+        else
+            Defaults.UnformattedSerializerOptions
 
-    let metadata = API.JSONCreation.createMetadataRecordFromInvestigation i
+    Investigation.read arcPath
+    |> API.JSONCreation.CreateMetadataRecordFromInvestigation(?PublicationDate = publicationDate)
+    |> API.JSONCreation.SerializeMetadataRecord(SerializerOptions = serializerOptions)
+    |> fun metadataJson -> File.WriteAllText(outFile, metadataJson)
 
-    let options = System.Text.Json.JsonSerializerOptions(WriteIndented = true)
-
-    File.WriteAllText(outFile,metadata.ToJsonString(options))
-
-    with
+with
     | :? ArguParseException as ex ->
         match ex.ErrorCode with
         | ErrorCode.HelpText  -> printfn "%s" (CLIArgs.cliArgParser.PrintUsage())
