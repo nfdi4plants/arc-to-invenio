@@ -15,7 +15,7 @@ type CLIContext() =
             ?fmt: bool
         ) = 
             fun f ->
-                let tool = $"arc2invenio.exe"
+                let tool = $"arc2invenio"
                 let args = 
                     [
                         $"-p {p} "
