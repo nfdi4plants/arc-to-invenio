@@ -11,6 +11,7 @@
     <Compile Include="TestObjects.fs" />
     <Compile Include="ReferenceObjects.fs" />
     <Compile Include="APITests.fs" />
+    <Compile Include="CLITests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 
@@ -19,10 +20,12 @@
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
     <ProjectReference Include="..\src\arc2invenio\arc2invenio.fsproj" />
-    <PackageReference Update="FSharp.Core" Version="6.*" />
+    <PackageReference Update="FSharp.Core" Version="7.*" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="fixtures\invalid-arc\" />
   </ItemGroup>
+
+  <ItemGroup />
 </Project>

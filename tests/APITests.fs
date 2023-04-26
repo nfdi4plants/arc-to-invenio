@@ -1,12 +1,11 @@
-namespace APITests
+module APITests
 open Expecto
 
-module API =
+let testDate = System.DateTime.ParseExact("2023-04-25","yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)
 
-    let testDate = System.DateTime.ParseExact("2023-04-25","yyyy-MM-dd",System.Globalization.CultureInfo.InvariantCulture)
-
-    [<Tests>]
-    let ``tests for investigation read via IO`` =
+[<Tests>]
+let ``API Tests`` =
+    testList "API tests" [
         testList "investigation via IO" [
             testList "investigation_1" [
                 testCase "json output formatted" (fun _ -> 
@@ -41,9 +40,6 @@ module API =
                 )
             ]
         ]
-
-    [<Tests>]
-    let ``tests for investigation created programmatically`` =
         testList "progammatically created investigation" [
             testList "investigation_1" [
                 testCase "json output formatted" (fun _ -> 
@@ -78,3 +74,4 @@ module API =
                 )
             ]
         ]
+    ]
