@@ -2,7 +2,7 @@
 
 open Fake.Core
 
-let project = "invenio-converter"
+let project = "arc-to-invenio"
 
 let testProjects = 
     [

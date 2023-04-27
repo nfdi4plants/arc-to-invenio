@@ -23,4 +23,4 @@ type CliArguments =
 
 let errorHandler = ProcessExiter(colorizer = function ErrorCode.HelpText -> None | _ -> Some System.ConsoleColor.Red)
 
-let cliArgParser = ArgumentParser.Create<CliArguments>(programName = "arc2invenio", errorHandler = errorHandler)
+let cliArgParser = ArgumentParser.Create<CliArguments>(programName = "arc-to-invenio", errorHandler = errorHandler)

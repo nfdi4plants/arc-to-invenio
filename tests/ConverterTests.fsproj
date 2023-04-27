@@ -19,7 +19,7 @@
     <PackageReference Include="Expecto" Version="9.*" />
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
-    <ProjectReference Include="..\src\arc2invenio\arc2invenio.fsproj" />
+    <ProjectReference Include="..\src\arc-to-invenio\arc-to-invenio.fsproj" />
     <PackageReference Update="FSharp.Core" Version="7.*" />
   </ItemGroup>
 

@@ -15,7 +15,7 @@ type CLIContext() =
             ?fmt: bool
         ) = 
             fun f ->
-                let tool = $"arc2invenio"
+                let tool = $"arc-to-invenio"
                 let args = 
                     [
                         $"-p {p} "
@@ -51,10 +51,10 @@ let ``CLI Tests`` =
     testList "CLI tests" [
         testList "fixtures/test-arc" [
             yield! testFixture (CLIContext.create(p = "fixtures/test-arc")) [
-                "arc2invenio -p fixtures/test-arc -pd 2023-04-25", (fun json -> fun () -> Expect.equal json ReferenceObjects.IO.investigation_1_unformatted "json created by cli copmmand was incorrect")
+                "arc-to-invenio -p fixtures/test-arc -pd 2023-04-25", (fun json -> fun () -> Expect.equal json ReferenceObjects.IO.investigation_1_unformatted "json created by cli copmmand was incorrect")
             ]
             yield! testFixture (CLIContext.create(p = "fixtures/test-arc", fmt=true)) [
-                "arc2invenio -p fixtures/test-arc -pd 2023-04-25 -fmt", (fun json -> fun () -> Expect.equal json ReferenceObjects.IO.investigation_1_formatted "json created by cli copmmand was incorrect")
+                "arc-to-invenio -p fixtures/test-arc -pd 2023-04-25 -fmt", (fun json -> fun () -> Expect.equal json ReferenceObjects.IO.investigation_1_formatted "json created by cli copmmand was incorrect")
             ]
         ]
     ]
