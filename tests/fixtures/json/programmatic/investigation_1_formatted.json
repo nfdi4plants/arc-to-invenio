@@ -8,7 +8,17 @@
         "type": "personal",
         "name": "Doe, John",
         "given_name": "John",
-        "family_name": "Doe"
+        "family_name": "Doe",
+        "identifiers": [
+          {
+            "scheme": "email",
+            "identifier": "yes@yes.yes"
+          },
+          {
+            "scheme": "orcid",
+            "identifier": "0000-0000-0000-0000"
+          }
+        ]
       }
     }
   ],

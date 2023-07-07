@@ -6,6 +6,30 @@ open JsonDSL
 
 type JSONCreation() =
 
+    static member tryGetOrcid (p: ISADotNet.Person) =
+        match p.Comments with
+        | Option.Some comments -> 
+            let orcid = 
+                comments |> List.tryFind (fun c -> 
+                    match c.Name with
+                    | Option.Some n -> n = "Investigation Person ORCID"
+                    | _ -> false
+                )
+                |> Option.map (fun c -> 
+                    match c.Value with
+                    | Option.Some v ->  Option.Some v
+                    | _ -> None
+                )
+            match orcid with
+            | Option.Some (Option.Some o) -> 
+                Option.Some(
+                    object {
+                        property "scheme" "orcid"
+                        property "identifier" o
+                    }
+                )
+            | _ -> None
+        | _ -> None
 
     static member CreateMetadataRecordFromInvestigation (?PublicationDate:System.DateTime) =
         fun (i:ISADotNet.Investigation) -> 
@@ -31,6 +55,14 @@ type JSONCreation() =
                                 property "name" $"{p.LastName.Value}, {p.FirstName.Value}"
                                 property "given_name" p.FirstName.Value
                                 property "family_name" p.LastName.Value
+                                property "identifiers" (array {
+                                    yield object {
+                                        property "scheme" "email"
+                                        property "identifier" (+. p.EMail)
+                                    }
+                                    if (JSONCreation.tryGetOrcid p).IsSome then 
+                                       yield (JSONCreation.tryGetOrcid p).Value
+                                })
                             })
                         }
                 })

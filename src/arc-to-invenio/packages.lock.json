@@ -28,14 +28,14 @@
       "FSharp.Core": {
         "type": "Direct",
         "requested": "[7.*, )",
-        "resolved": "7.0.200",
-        "contentHash": "NmgUnpNH6Zu9B0SPIhojyo38gnPdkdYFYQfbd6zosEH32kbGY/g/Klk7PfOWe1NAe/O1YOMmK9KhwQ2OWsWEbg=="
+        "resolved": "7.0.300",
+        "contentHash": "8vvItREJ1l5lcp3vBCSJ1mFevVAhR48I34DuF/EoUa7o1KlFpQpagyuZkVYMAsHPIjdp47ZxM9sI4eqeXaeWkA=="
       },
       "JsonDSL": {
         "type": "Direct",
-        "requested": "[0.1.0, 0.1.0]",
-        "resolved": "0.1.0",
-        "contentHash": "w2vohWW7xgS4M3AafHV1doEEQbeOHo0qOw1Tq0wnfjuoWC42vlFOmx7DGuB4dE2c5fgZ9Ie7225BixdP6Nkcig==",
+        "requested": "[0.2.0, 0.2.0]",
+        "resolved": "0.2.0",
+        "contentHash": "bq41FAkRAlG+b1aWz5ZejrtJng2Pg8KqEotjGlucmacLOwEF/+qr0Remrn/GH/MPlYJsKcFTOY5IkN3/0ArqIg==",
         "dependencies": {
           "FSharp.Core": "6.0.6",
           "System.Text.Json": "7.0.2"

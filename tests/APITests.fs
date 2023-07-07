@@ -63,10 +63,18 @@ let ``API Tests`` =
                         "json output is incorrect"
                     )
             ]
-            testList "invalid investigation" [
+            testList "invalid investigations" [
                 testCase "investigation without persons should fail" (fun _ -> 
                     Expect.throws (fun () -> 
                         TestObjects.Programmatic.investigation_invalid
+                        |> API.JSONCreation.CreateMetadataRecordFromInvestigation(testDate)
+                        |> ignore
+                    )
+                        "invalid metadata record was created but should have failed"
+                )
+                testCase "investigation without email should fail" (fun _ -> 
+                    Expect.throws (fun () -> 
+                        TestObjects.Programmatic.investigation_invalid_no_email
                         |> API.JSONCreation.CreateMetadataRecordFromInvestigation(testDate)
                         |> ignore
                     )

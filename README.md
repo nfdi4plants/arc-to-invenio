@@ -14,12 +14,72 @@ CLI tool for creating invenio-rdm metadata records from ARCs.
 
 ## Supported fields
 
-| Invenio metadata record | ARC metadata | Notes |
-|---|---|---|
-| `resource_type` | - | set to `{"id":"dataset"}` per default|
-| `creators` | `Investigation.Contacts` | `"type":"personal"`, `name`, `given_name`, `family_name` created from individual `Person` entries in `Investigation.Contacts`|
-| `title` | `Investigation.Title` | |
-| `publication_date` | - | settable via `--publication-date` flag, defaults to current date|
+- `resource_type`
+    - set to `{"id":"dataset"}` per default
+
+- `creators` 
+    - Investigation data source: `Investigation.Contacts` 
+    - list of `person_or_org` records created from Investigation.Contacts:
+    
+        | field | source | note |
+        |---|---|---|
+        | type | personal | set per default |
+        | name | `{Person.LastName}, {Person.FirstName}` | |
+        | given_name | `Person.FirstName` | |
+        | family_name | `Person.LastName` | |
+        | identifiers | `Person.Email`; `Person.Comments` (for orcid) | contains an identifier record based on person metadata. Mandatory: email. Optional: Orcid|
+
+- `title`
+    - Investigation data source: `Investigation.Title`
+- `publication_date` 
+    - settable via `--publication-date` flag
+    - defaults to current date
+
+full example record:
+
+```json
+{
+  "resource_type": {
+    "id": "dataset"
+  },
+  "creators": [
+    {
+      "person_or_org": {
+        "type": "personal",
+        "name": "LN1, FN1",
+        "given_name": "FN1",
+        "family_name": "LN1",
+        "identifiers": [
+          {
+            "scheme": "email",
+            "identifier": "yes@yes.yes"
+          },
+          {
+            "scheme": "orcid",
+            "identifier": "0000-0000-0000-0000"
+          }
+        ]
+      }
+    },
+    {
+      "person_or_org": {
+        "type": "personal",
+        "name": "LN2, FN2",
+        "given_name": "FN2",
+        "family_name": "LN2",
+        "identifiers": [
+          {
+            "scheme": "email",
+            "identifier": "yes@yes.yes"
+          }
+        ]
+      }
+    }
+  ],
+  "title": "test investigation",
+  "publication_date": "2023-04-25"
+}
+```
 
 ## Development
 

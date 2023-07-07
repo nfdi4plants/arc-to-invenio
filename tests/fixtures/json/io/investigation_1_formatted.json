@@ -8,7 +8,17 @@
         "type": "personal",
         "name": "LN1, FN1",
         "given_name": "FN1",
-        "family_name": "LN1"
+        "family_name": "LN1",
+        "identifiers": [
+          {
+            "scheme": "email",
+            "identifier": "yes@yes.yes"
+          },
+          {
+            "scheme": "orcid",
+            "identifier": "0000-0000-0000-0000"
+          }
+        ]
       }
     },
     {
@@ -16,7 +26,13 @@
         "type": "personal",
         "name": "LN2, FN2",
         "given_name": "FN2",
-        "family_name": "LN2"
+        "family_name": "LN2",
+        "identifiers": [
+          {
+            "scheme": "email",
+            "identifier": "yes@yes.yes"
+          }
+        ]
       }
     }
   ],

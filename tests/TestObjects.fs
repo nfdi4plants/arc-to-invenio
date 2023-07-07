@@ -11,7 +11,15 @@ module Programmatic =
                 [
                     Person.create(
                         FirstName = "John",
-                        LastName = "Doe"
+                        LastName = "Doe",
+                        Email = "yes@yes.yes",
+                        Comments = 
+                            [
+                                Comment.create(
+                                    Name = "Investigation Person ORCID",
+                                    Value = "0000-0000-0000-0000"
+                                )
+                            ]
                     )
                 ]
             
@@ -20,6 +28,26 @@ module Programmatic =
     let investigation_invalid =
         Investigation.create(
             Title = "Programmatically created test investigation without persons"
+        )
+
+    let investigation_invalid_no_email =
+        Investigation.create(
+            Title = "Programmatically created test investigation",
+            Contacts = 
+                [
+                    Person.create(
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Comments = 
+                            [
+                                Comment.create(
+                                    Name = "Investigation Person ORCID",
+                                    Value = "0000-0000-0000-0000"
+                                )
+                            ]
+                    )
+                ]
+            
         )
 
 module IO = 
