@@ -64,6 +64,11 @@ type JSONCreation() =
                                        yield (JSONCreation.tryGetOrcid p).Value
                                 })
                             })
+                            property "affiliations" (array {
+                                object {
+                                    property "name" (+. p.Affiliation)
+                                }
+                            })
                         }
                 })
                 property "title" (-. i.Title)

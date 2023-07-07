@@ -19,7 +19,12 @@
             "identifier": "0000-0000-0000-0000"
           }
         ]
-      }
+      },
+      "affiliations": [
+        {
+          "name": "Institute 1"
+        }
+      ]
     },
     {
       "person_or_org": {
@@ -33,7 +38,12 @@
             "identifier": "yes@yes.yes"
           }
         ]
-      }
+      },
+      "affiliations": [
+        {
+          "name": "Institute 2"
+        }
+      ]
     }
   ],
   "title": "test investigation",

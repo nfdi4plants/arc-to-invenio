@@ -80,6 +80,14 @@ let ``API Tests`` =
                     )
                         "invalid metadata record was created but should have failed"
                 )
+                testCase "investigation without person affiliation should fail" (fun _ -> 
+                    Expect.throws (fun () -> 
+                        TestObjects.Programmatic.investigation_invalid_no_affiliation
+                        |> API.JSONCreation.CreateMetadataRecordFromInvestigation(testDate)
+                        |> ignore
+                    )
+                        "invalid metadata record was created but should have failed"
+                )
             ]
         ]
     ]

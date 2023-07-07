@@ -19,7 +19,12 @@
             "identifier": "0000-0000-0000-0000"
           }
         ]
-      }
+      },
+      "affiliations": [
+        {
+          "name": "Institute 1"
+        }
+      ]
     }
   ],
   "title": "Programmatically created test investigation",

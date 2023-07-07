@@ -19,7 +19,7 @@ CLI tool for creating invenio-rdm metadata records from ARCs.
 
 - `creators` 
     - Investigation data source: `Investigation.Contacts` 
-    - list of `person_or_org` records created from Investigation.Contacts:
+    - `person_or_org` record:
     
         | field | source | note |
         |---|---|---|
@@ -28,7 +28,9 @@ CLI tool for creating invenio-rdm metadata records from ARCs.
         | given_name | `Person.FirstName` | |
         | family_name | `Person.LastName` | |
         | identifiers | `Person.Email`; `Person.Comments` (for orcid) | contains an identifier record based on person metadata. Mandatory: email. Optional: Orcid|
-
+    - `affiliation` list:
+        - Investigation data source: `Person.Affiliation`
+        - this field is an object containing only the "name" field. it can subsequently be matched to exisiting affiliations in the invenio instance.
 - `title`
     - Investigation data source: `Investigation.Title`
 - `publication_date` 
@@ -59,7 +61,12 @@ full example record:
             "identifier": "0000-0000-0000-0000"
           }
         ]
-      }
+      },
+      "affiliations": [
+        {
+          "name": "Institute 1"
+        }
+      ]
     },
     {
       "person_or_org": {
@@ -73,7 +80,12 @@ full example record:
             "identifier": "yes@yes.yes"
           }
         ]
-      }
+      },
+      "affiliations": [
+        {
+          "name": "Institute 2"
+        }
+      ]
     }
   ],
   "title": "test investigation",
