@@ -87,6 +87,14 @@ let ``API Tests`` =
                         |> ignore
                     )
                         "invalid metadata record was created but should have failed"
+                )                
+                testCase "investigation without persondescription should fail" (fun _ -> 
+                    Expect.throws (fun () -> 
+                        TestObjects.Programmatic.investigation_invalid_no_description
+                        |> API.JSONCreation.CreateMetadataRecordFromInvestigation(testDate)
+                        |> ignore
+                    )
+                        "invalid metadata record was created but should have failed"
                 )
             ]
         ]

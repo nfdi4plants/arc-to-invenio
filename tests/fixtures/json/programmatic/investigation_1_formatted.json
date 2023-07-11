@@ -28,5 +28,6 @@
     }
   ],
   "title": "Programmatically created test investigation",
+  "description": "This is a test investigation created programmatically",
   "publication_date": "2023-04-25"
 }

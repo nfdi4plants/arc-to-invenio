@@ -31,11 +31,17 @@ CLI tool for creating invenio-rdm metadata records from ARCs.
     - `affiliation` list:
         - Investigation data source: `Person.Affiliation`
         - this field is an object containing only the "name" field. it can subsequently be matched to exisiting affiliations in the invenio instance.
+
 - `title`
     - Investigation data source: `Investigation.Title`
+
+- `description`
+    - Investigation data source: `Investigation.Description`
+
 - `publication_date` 
     - settable via `--publication-date` flag
     - defaults to current date
+    - note that this should be changed downstream to the actual date of publishing, as the current date will be the date when the pipeline runs, not necessarily the actual publication date.
 
 full example record:
 
@@ -89,6 +95,7 @@ full example record:
     }
   ],
   "title": "test investigation",
+  "description": "this is a test investigation",
   "publication_date": "2023-04-25"
 }
 ```

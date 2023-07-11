@@ -72,6 +72,7 @@ type JSONCreation() =
                         }
                 })
                 property "title" (-. i.Title)
+                property "description" (+. i.Description)
                 property "publication_date" publication_date_ISO
             }
 

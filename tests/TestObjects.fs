@@ -7,6 +7,7 @@ module Programmatic =
     let investigation_1 =
         Investigation.create(
             Title = "Programmatically created test investigation",
+            Description = "This is a test investigation created programmatically",
             Contacts = 
                 [
                     Person.create(
@@ -66,6 +67,27 @@ module Programmatic =
                                     Value = "0000-0000-0000-0000"
                                 )
                             ]
+                    )
+                ]
+        )
+
+    let investigation_invalid_no_description =
+        Investigation.create(
+            Title = "Programmatically created test investigation",
+            Contacts = 
+                [
+                    Person.create(
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Email = "yes@yes.yes",
+                        Comments = 
+                            [
+                                Comment.create(
+                                    Name = "Investigation Person ORCID",
+                                    Value = "0000-0000-0000-0000"
+                                )
+                            ],
+                        Affiliation = "Institute 1"
                     )
                 ]
         )
