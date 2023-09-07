@@ -1,99 +1,84 @@
 ﻿module TestObjects
 
+open InternalUtils
 
 module Programmatic =
-    open ISADotNet
+    open ARCtrl
+    open ARCtrl.NET
+    open ARCtrl.ISA
 
     let investigation_1 =
-        Investigation.create(
-            Title = "Programmatically created test investigation",
-            Description = "This is a test investigation created programmatically",
-            Contacts = 
-                [
+        ArcInvestigation(
+            Identifier.createMissingIdentifier(),
+            title = "Programmatically created test investigation",
+            description = "This is a test investigation created programmatically",
+            contacts = 
+                [|
                     Person.create(
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "yes@yes.yes",
-                        Comments = 
-                            [
-                                Comment.create(
-                                    Name = "Investigation Person ORCID",
-                                    Value = "0000-0000-0000-0000"
-                                )
-                            ],
+                        ORCID =  "0000-0000-0000-0000",
                         Affiliation = "Institute 1"
                     )
-                ]
+                |]
         )
 
     let investigation_invalid =
-        Investigation.create(
-            Title = "Programmatically created test investigation without persons"
+        ArcInvestigation(
+            Identifier.createMissingIdentifier(),
+            title = "Programmatically created test investigation without persons"
         )
 
     let investigation_invalid_no_email =
-        Investigation.create(
-            Title = "Programmatically created test investigation",
-            Contacts = 
-                [
+        ArcInvestigation(
+            Identifier.createMissingIdentifier(),
+            title = "Programmatically created test investigation",
+            contacts = 
+                [|
                     Person.create(
                         FirstName = "John",
                         LastName = "Doe",
-                        Comments = 
-                            [
-                                Comment.create(
-                                    Name = "Investigation Person ORCID",
-                                    Value = "0000-0000-0000-0000"
-                                )
-                            ]
+                        ORCID =  "0000-0000-0000-0000"
                     )
-                ]
+                |]
             
         )
 
     let investigation_invalid_no_affiliation =
-        Investigation.create(
-            Title = "Programmatically created test investigation",
-            Contacts = 
-                [
+        ArcInvestigation(
+            Identifier.createMissingIdentifier(),
+            title = "Programmatically created test investigation",
+            contacts = 
+                [|
                     Person.create(
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "yes@yes.yes",
-                        Comments = 
-                            [
-                                Comment.create(
-                                    Name = "Investigation Person ORCID",
-                                    Value = "0000-0000-0000-0000"
-                                )
-                            ]
+                        ORCID =  "0000-0000-0000-0000"
                     )
-                ]
+                |]
         )
 
     let investigation_invalid_no_description =
-        Investigation.create(
-            Title = "Programmatically created test investigation",
-            Contacts = 
-                [
+        ArcInvestigation(
+            Identifier.createMissingIdentifier(),
+            title = "Programmatically created test investigation",
+            contacts = 
+                [|
                     Person.create(
                         FirstName = "John",
                         LastName = "Doe",
                         Email = "yes@yes.yes",
-                        Comments = 
-                            [
-                                Comment.create(
-                                    Name = "Investigation Person ORCID",
-                                    Value = "0000-0000-0000-0000"
-                                )
-                            ],
+                        ORCID =  "0000-0000-0000-0000",
                         Affiliation = "Institute 1"
                     )
-                ]
+                |]
         )
 
 module IO = 
-    open arcIO.NET
+    open ARCtrl
+    open ARCtrl.NET
 
-    let investigation_1 = Investigation.fromArcFolder "fixtures/test-arc"
-    let investigation_invalid = Investigation.fromArcFolder "fixtures/invalid-arc"
+    let investigation_1 = (loadARCCustom "fixtures/test-arc").ISA.Value
+    let investigation_invalid = (loadARCCustom "fixtures/invalid-arc").ISA.Value

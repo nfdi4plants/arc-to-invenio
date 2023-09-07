@@ -1,38 +1,26 @@
 ﻿module API
 
-open arcIO.NET
+open ARCtrl
+open ARCtrl.ISA
+open ARCtrl.NET
 open System.Text.Json
 open JsonDSL
 
 type JSONCreation() =
 
-    static member tryGetOrcid (p: ISADotNet.Person) =
-        match p.Comments with
-        | Option.Some comments -> 
-            let orcid = 
-                comments |> List.tryFind (fun c -> 
-                    match c.Name with
-                    | Option.Some n -> n = "Investigation Person ORCID"
-                    | _ -> false
-                )
-                |> Option.map (fun c -> 
-                    match c.Value with
-                    | Option.Some v ->  Option.Some v
-                    | _ -> None
-                )
-            match orcid with
-            | Option.Some (Option.Some o) -> 
-                Option.Some(
-                    object {
-                        property "scheme" "orcid"
-                        property "identifier" o
-                    }
-                )
-            | _ -> None
+    static member tryGetOrcid (p: ISA.Person) =
+        match p.ORCID with
+        | Option.Some orcid -> 
+            Option.Some(
+                object {
+                    property "scheme" "orcid"
+                    property "identifier" orcid
+                }
+            )
         | _ -> None
 
     static member CreateMetadataRecordFromInvestigation (?PublicationDate:System.DateTime) =
-        fun (i:ISADotNet.Investigation) -> 
+        fun (i:ArcInvestigation) -> 
             //currently targets this undocumented python class:
             //
             //class Metadata(BaseModel):
@@ -48,7 +36,7 @@ type JSONCreation() =
                     property "id" "dataset"
                 })
                 property "creators" (array {
-                    for p in i.Contacts |> Option.defaultValue [] do
+                    for p in i.Contacts do
                         yield object {
                             property "person_or_org" (object {
                                 property "type" "personal"

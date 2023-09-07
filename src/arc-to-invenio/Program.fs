@@ -1,6 +1,41 @@
 ﻿open System.IO
-open arcIO.NET
 open Argu
+
+open ARCtrl
+open ARCtrl.FileSystem
+open ARCtrl.ISA
+open ARCtrl.NET
+open Argu
+open ARCtrl.NET.Contract
+
+let getAllFilePaths (directoryPath : string) =
+    let directoryPath = System.IO.Path.GetFullPath(directoryPath)
+    let rec allFiles dirs =
+        if Seq.isEmpty dirs then Seq.empty else
+            seq { yield! dirs |> Seq.collect Directory.EnumerateFiles
+                  yield! dirs |> Seq.collect Directory.EnumerateDirectories |> allFiles }
+
+    allFiles [directoryPath] 
+    |> Seq.toArray
+    |> Array.map System.IO.Path.GetFullPath
+    |> Array.map (fun p -> p.Replace(directoryPath, "").Replace("\\","/"))
+
+let loadARCCustom (arcPath : string) =
+                
+    //// EINFACH DIESE ZEIELE AUSTAUSCHEN
+           
+    let paths = getAllFilePaths arcPath
+            
+    let arc = ARC.fromFilePaths paths
+
+    let contracts = arc.GetReadContracts()
+
+    let fulFilledContracts = 
+        contracts 
+        |> Array.map (fulfillReadContract arcPath)
+
+    arc.SetISAFromContracts(fulFilledContracts,true)
+    arc
 
 try
     let args = CLIArgs.cliArgParser.ParseCommandLine()
@@ -23,10 +58,12 @@ try
         else
             Defaults.UnformattedSerializerOptions
 
-    Investigation.read arcPath
-    |> API.JSONCreation.CreateMetadataRecordFromInvestigation(?PublicationDate = publicationDate)
-    |> API.JSONCreation.SerializeMetadataRecord(SerializerOptions = serializerOptions)
-    |> fun metadataJson -> File.WriteAllText(outFile, metadataJson)
+    (loadARCCustom arcPath)
+        .ISA
+        .Value
+        |> API.JSONCreation.CreateMetadataRecordFromInvestigation(?PublicationDate = publicationDate)
+        |> API.JSONCreation.SerializeMetadataRecord(SerializerOptions = serializerOptions)
+        |> fun metadataJson -> File.WriteAllText(outFile, metadataJson)
 
 with
     | :? ArguParseException as ex ->
