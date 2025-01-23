@@ -1,14 +1,12 @@
 ﻿module API
 
 open ARCtrl
-open ARCtrl.ISA
-open ARCtrl.NET
 open System.Text.Json
 open JsonDSL
 
 type JSONCreation() =
 
-    static member tryGetOrcid (p: ISA.Person) =
+    static member tryGetOrcid (p: Person) =
         match p.ORCID with
         | Option.Some orcid -> 
             Option.Some(
