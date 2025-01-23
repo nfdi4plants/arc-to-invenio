@@ -9,7 +9,7 @@ RUN dotnet build "./arc-to-invenio.fsproj" -c $BUILD_CONFIGURATION -o /build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./arc-to-invenio" -c $BUILD_CONFIGURATION -o /publish
+RUN dotnet publish "./arc-to-invenio.fsproj" -c $BUILD_CONFIGURATION -o /publish
 
 FROM base AS final
 COPY --from=publish /publish .
