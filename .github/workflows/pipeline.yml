@@ -51,7 +51,7 @@ jobs:
       - name: set triggers
         id: set-triggers
         run: |
-          echo "trigger-build-and-test=${{ steps.changed-files-yaml.outputs.tests_any_modified == 'true' || steps.changed-files-yaml.outputs.src_any_modified  == 'true' }}" >> $GITHUB_OUTPUT
+          echo "trigger-build-and-test=${{ steps.changed-files-yaml.outputs.tests_any_modified == 'true' || steps.changed-files-yaml.outputs.src_any_modified  == 'true' || steps.changed-files-yaml.outputs.dockerfile_any_modified  == 'true'}}" >> $GITHUB_OUTPUT
           echo "trigger-release-docker=${{ github.event_name == 'push' && (steps.changed-files-yaml.outputs.tests_any_modified == 'true' || steps.changed-files-yaml.outputs.src_any_modified  == 'true' || steps.changed-files-yaml.outputs.dockerfile_any_modified  == 'true') }}" >> $GITHUB_OUTPUT
 
           echo "$GITHUB_OUTPUT"
