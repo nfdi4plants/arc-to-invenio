@@ -1,5 +1,8 @@
 # arc-to-invenio
 
+> [!NOTE]
+> This repository is deprecated, as archigator now directly consumes the RO-Crate metadata json (#25)
+
 CLI tool for creating invenio-rdm metadata records from ARCs.
 
 - [arc-to-invenio](#arc-to-invenio)
